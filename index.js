@@ -32,7 +32,7 @@ app.get('/help', (req, res) => {
 });
 
 app.get('/getMessages', (req, res) => {
-    res.json(messages)
+    res.status(200).json(messages)
 });
 
 app.post('/createAccount', (req, res) => { 
@@ -44,7 +44,7 @@ app.post('/createAccount', (req, res) => {
         name = CreateNewUser();
     }
     if (!users.includes(name)) users.push(name);
-    res.json({user: name}) 
+    res.status(200).json({user: name}) 
 });
 
 app.post('/sendMessage', (req, res) => { 
@@ -54,17 +54,17 @@ app.post('/sendMessage', (req, res) => {
         if (message && message.length > 1){
             const last = messages.at(messages.length - 1)
             if (last && last.user == user && last.message == message){
-                res.json({status: "Duplicate message\n{user: <username>, message: <message>}"})
+                res.status(400).json({status: "Duplicate message\n{user: <username>, message: <message>}"})
             }else{
                 messages.push({user: user, message: message, time: Date.now()})
                 console.log("New message from " + user + ": '" + message + "'")
-                res.json({status: "OK"})
+                res.status(200).json({status: "OK"})
             }
         }else{
-            res.json({status: "Missing message\n{user: <username>, message: <message>}"})
+            res.status(400).json({status: "Missing message\n{user: <username>, message: <message>}"})
         }
     }else{
-        res.json({status: "Missing valid user\n{user: <username>, message: <message>}"})
+        res.status(400).json({status: "Missing valid user\n{user: <username>, message: <message>}"})
     }
 });
 
