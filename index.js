@@ -51,7 +51,7 @@ app.post('/sendMessage', (req, res) => {
     let user = req.body.user;
     if (users.includes(user)){
         let message = req.body.message;
-        if (message){
+        if (message && message.length > 1){
             messages.push({user: user, message: message, time: Date.now()})
             console.log("New message from " + user + ": '" + message + "'")
             res.json({status: "OK"})
