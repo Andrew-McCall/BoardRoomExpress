@@ -52,9 +52,14 @@ app.post('/sendMessage', (req, res) => {
     if (users.includes(user)){
         let message = req.body.message;
         if (message && message.length > 1){
-            messages.push({user: user, message: message, time: Date.now()})
-            console.log("New message from " + user + ": '" + message + "'")
-            res.json({status: "OK"})
+            const last = messages.at(messages.length - 1)
+            if (last && last.user == user && last.message == message){
+                res.json({status: "Duplicate message\n{user: <username>, message: <message>}"})
+            }else{
+                messages.push({user: user, message: message, time: Date.now()})
+                console.log("New message from " + user + ": '" + message + "'")
+                res.json({status: "OK"})
+            }
         }else{
             res.json({status: "Missing message\n{user: <username>, message: <message>}"})
         }
