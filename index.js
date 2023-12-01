@@ -36,8 +36,14 @@ app.get('/getMessages', (req, res) => {
 });
 
 app.post('/createAccount', (req, res) => { 
-    let name = CreateNewUser();
-    users.push(name);
+    let user = req.body.user;
+    let name;
+    if (user){
+        name = user;
+    }else{
+        name = CreateNewUser();
+    }
+    if (!users.includes(name)) users.push(name);
     res.json({user: name}) 
 });
 
