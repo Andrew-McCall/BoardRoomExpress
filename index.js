@@ -10,7 +10,8 @@ const phonetic = ["Alpha", "Bravo","Charlie", "Delta", "Echo", "Foxtrot", "Golf"
 function CreateNewUser(){
     let name = ""
     name += phonetic[Math.floor(Math.random() * phonetic.length)]
-    name += phonetic[Math.floor(Math.random() * phonetic.length)]
+    if (Math.random() > .5) name += phonetic[Math.floor(Math.random() * phonetic.length)]
+    if (Math.random() > .5) name += phonetic[Math.floor(Math.random() * phonetic.length)]
 
     if (users.includes(name)){
         return CreateNewUser()
