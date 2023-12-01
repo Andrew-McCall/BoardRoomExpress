@@ -38,7 +38,7 @@ app.get('/getMessages', (req, res) => {
 app.post('/createAccount', (req, res) => { 
     let user = req.body.user;
     let name;
-    if (user){
+    if (user && user.length > 1){
         name = user;
     }else{
         name = CreateNewUser();
